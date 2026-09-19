@@ -100,6 +100,7 @@
     display:flex;align-items:center;gap:14px;
     padding:9px 16px;background:var(--panel);border-bottom:1px solid var(--line);
   }
+  .brand{display:flex;flex-direction:column;gap:5px;min-width:0}
   .wordmark{display:flex;align-items:baseline;gap:9px;min-width:0}
   .wordmark b{
     font-family:"Anuphan",sans-serif;font-weight:700;font-size:25px;letter-spacing:-.015em;white-space:nowrap;
@@ -362,10 +363,13 @@
 
 <div class="app">
   <header class="topbar">
-    <div class="wordmark">
-      <b>Ceph Protractor</b>
-      <span class="stamp">ลิขสิทธิ์ โดย หมอผิ่น</span>
-      <span>โต๊ะวัดมุมจากภาพถ่าย</span>
+    <div class="brand">
+      <div class="wordmark">
+        <b>Ceph Protractor</b>
+        <span class="stamp">ลิขสิทธิ์ โดย หมอผิ่น</span>
+        <span>โต๊ะวัดมุมจากภาพถ่าย</span>
+      </div>
+      <div class="usage" id="usage" hidden></div>
     </div>
     <div class="grow"></div>
     <div class="topbar-actions">
@@ -405,11 +409,6 @@
     </div>
 
     <aside class="side">
-      <section class="sec" id="usageSec" hidden>
-        <h2>สถิติการใช้งาน</h2>
-        <div class="usage" id="usage"></div>
-      </section>
-
       <section class="sec" id="cephSec">
         <h2>โหมด ceph<span class="spacer"></span>
           <button class="btn sm primary" id="btnCeph">เริ่ม</button>
@@ -1427,9 +1426,8 @@
    * โหลดไม่ได้ = ซ่อนส่วนนี้ไว้เฉย ๆ ไม่มี error รบกวนผู้ใช้
    */
   (function loadUsage() {
-    var sec = document.getElementById('usageSec');
     var box = document.getElementById('usage');
-    if (!sec || !box) return;
+    if (!box) return;
 
     var cb = 'cephUsage' + Date.now().toString(36);
     var el = document.createElement('script');
@@ -1448,7 +1446,7 @@
           '<span class="u-chip">SCA <b>' + n(sca.users) + '</b> คน <i>เปิด ' + n(sca.opens) + ' ครั้ง</i></span>' +
           '<span class="u-chip">วันนี้ <b>' + n(today) + '</b> คน</span>' +
           '<a class="u-more" href="https://mathold.github.io/sca-app/stats/" target="_blank" rel="noopener">ดูสถิติทั้งหมด →</a>';
-        sec.hidden = false;
+        box.hidden = false;
       } catch (e) {}
     };
     el.onerror = cleanup;
