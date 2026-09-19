@@ -1420,6 +1420,18 @@
   };
   window.cephTrack('open');
 
+  /* ---------- service worker ----------
+   * ให้เห็นของใหม่ทันทีที่รีเฟรช (GitHub Pages แคช HTML ไว้ 10 นาที)
+   * และใช้งานตอนไม่มีเน็ตได้ · updateViaCache:'none' = เช็ค sw.js จากเซิร์ฟเวอร์เสมอ
+   */
+  if ('serviceWorker' in navigator) {
+    window.addEventListener('load', function () {
+      navigator.serviceWorker.register('sw.js', { updateViaCache: 'none' })
+        .then(function (reg) { reg.update(); })
+        .catch(function () {});
+    });
+  }
+
   /* ---------- แถบสถิติการใช้งาน ----------
    * ใช้ Apps Script ตัวเดียวกับที่ส่งตัวนับ แต่เรียกโหมด ?read=1 ด้วย JSONP
    * (Apps Script ไม่ส่ง CORS header จึง fetch ตรง ๆ ไม่ได้)
