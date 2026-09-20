@@ -167,9 +167,21 @@
   .toolrail hr{border:0;border-top:1px solid var(--stage-line);margin:2px 0}
 
   /* ---------- sidebar ---------- */
+  /* ---------- ลายน้ำลิขสิทธิ์บนพื้นหลังแผงผลวัด ----------
+     ฝังเป็น SVG ใน background-image จึงอยู่หลังข้อความเสมอ ไม่ทับเนื้อหา
+     ความจางกำหนดด้วย fill-opacity ใน SVG · แยกโทนสว่าง/มืดด้วยตัวแปร --stamp-front
+     (ค่าสีใน data URI ต้องเป็นตัวอักษรตรง ๆ จึงใส่สองชุดแล้วสลับด้วย media query) */
   .side{
     background:var(--panel);border-left:1px solid var(--line);
     overflow-y:auto;display:flex;flex-direction:column;
+    background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='300' height='200'><text x='150' y='100' font-family='Sarabun, Thonburi, sans-serif' font-size='21' font-weight='700' fill='%230B6771' fill-opacity='0.06' text-anchor='middle' transform='rotate(-28 150 100)'>ลิขสิทธิ์ โดย หมอผิ่น</text></svg>");
+    background-repeat:repeat;
+    -webkit-print-color-adjust:exact;print-color-adjust:exact;
+  }
+  @media (prefers-color-scheme:dark){
+    :root:not([data-theme="light"]) .side{
+      background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='300' height='200'><text x='150' y='100' font-family='Sarabun, Thonburi, sans-serif' font-size='21' font-weight='700' fill='%235FD3DA' fill-opacity='0.07' text-anchor='middle' transform='rotate(-28 150 100)'>ลิขสิทธิ์ โดย หมอผิ่น</text></svg>");
+    }
   }
   .sec{border-bottom:1px solid var(--line-soft);padding:14px 16px}
   .sec:last-child{border-bottom:0}
