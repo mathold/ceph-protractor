@@ -1430,7 +1430,9 @@
       }
     } catch (e) {}
   };
-  window.cephTrack('open');
+  // ไม่ยิงตอนเปิดหน้า — นับเฉพาะตอนใช้งานจริง (กดคัดลอกผลวัด)
+  var _btnCopy = document.getElementById('btnCopy');
+  if (_btnCopy) _btnCopy.addEventListener('click', function () { window.cephTrack('open'); });
 
   /* ---------- service worker ----------
    * ให้เห็นของใหม่ทันทีที่รีเฟรช (GitHub Pages แคช HTML ไว้ 10 นาที)
@@ -1465,7 +1467,7 @@
         var c = (d && d.apps && d.apps.ceph) || {};      // เฉพาะสถิติของแอพนี้
         box.innerHTML =
           '<span class="u-chip">ผู้ใช้ทั้งหมด <b>' + n(c.users) + '</b> คน</span>' +
-          '<span class="u-chip">เปิดใช้ <b>' + n(c.opens) + '</b> ครั้ง</span>' +
+          '<span class="u-chip">ใช้งาน <b>' + n(c.opens) + '</b> ครั้ง</span>' +
           '<span class="u-chip">วันนี้ <b>' + n(c.today) + '</b> คน</span>';
         box.hidden = false;
       } catch (e) {}
