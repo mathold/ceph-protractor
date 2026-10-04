@@ -1437,9 +1437,13 @@
       }
     } catch (e) {}
   };
-  // ไม่ยิงตอนเปิดหน้า — นับเฉพาะตอนใช้งานจริง (กดคัดลอกผลวัด)
-  var _btnCopy = document.getElementById('btnCopy');
-  if (_btnCopy) _btnCopy.addEventListener('click', function () { window.cephTrack('open'); });
+  // ไม่ยิงตอนเปิดหน้า — นับเฉพาะตอนใช้งานจริง (กดปุ่มคัดลอกผลปุ่มใดก็ได้)
+  // event 'open' = การใช้งานจริง 1 ครั้งตามที่ counter.gs นับ · detail บอกว่ากดปุ่มไหน
+  // (เดิมผูกแค่ btnCopy บนหัวแอพ ทั้งที่คนใช้กด "คัดลอกสำหรับตาราง SCA" เป็นหลัก → ยอดไม่ขยับ)
+  [['btnCopy', 'copy'], ['btnCopySca', 'copy_sca'], ['btnCopyCeph', 'copy_ceph']].forEach(function (b) {
+    var el = document.getElementById(b[0]);
+    if (el) el.addEventListener('click', function () { window.cephTrack('open', b[1]); });
+  });
 
   /* ---------- service worker ----------
    * ให้เห็นของใหม่ทันทีที่รีเฟรช (GitHub Pages แคช HTML ไว้ 10 นาที)
