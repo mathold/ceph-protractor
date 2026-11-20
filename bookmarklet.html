@@ -1,0 +1,154 @@
+<!doctype html>
+<!--
+  Ceph Protractor — ลิขสิทธิ์ © 2026 หมอผิ่น · สงวนลิขสิทธิ์ทุกประการ
+  Copyright (c) 2026 Mo Pin. All Rights Reserved.
+  ห้ามทำซ้ำ ดัดแปลง หรือนำโค้ด/ตรรกะส่วนใดไปใช้ต่อ โดยไม่ได้รับอนุญาตเป็นลายลักษณ์อักษร
+  Unauthorized copying, modification or reuse of this file is prohibited.
+  ใช้งานได้ผ่านลิงก์ที่เจ้าของเผยแพร่เท่านั้น · ดู LICENSE
+-->
+<html lang="th"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ดึงจุด Ceph จาก Angelalign</title>
+<link href="https://fonts.googleapis.com/css2?family=Anuphan:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{--ink:#141C22;--soft:#5C6B75;--line:#D2DBDF;--accent:#0E7C86;--wash:#DCEEF0;--panel:#fff;--ground:#EBEFF1}
+  @media (prefers-color-scheme:dark){:root{--ink:#E6EEF1;--soft:#9FB6BE;--line:#2A363D;--accent:#5FD3DA;--wash:#14282C;--panel:#121A1F;--ground:#0D1316}}
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--ground);color:var(--ink);font-family:"Anuphan",-apple-system,sans-serif;line-height:1.65}
+  .wrap{max-width:720px;margin:0 auto;padding:28px 18px 60px}
+  h1{font-size:23px;margin:0 0 4px}
+  .sub{color:var(--soft);font-size:14px;margin:0 0 22px}
+  .card{background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:18px 20px;margin:0 0 16px}
+  h2{font-size:16px;margin:0 0 10px}
+  ol,ul{margin:8px 0;padding-left:20px}
+  li{margin:5px 0}
+  .bm{display:inline-block;padding:11px 20px;border-radius:6px;background:var(--accent);color:#fff;
+      font-weight:700;font-size:15px;text-decoration:none;cursor:grab;box-shadow:0 2px 10px rgba(14,124,134,.3)}
+  .bm:active{cursor:grabbing}
+  .hintrow{display:flex;align-items:center;gap:14px;flex-wrap:wrap;margin:6px 0 2px}
+  code{background:var(--wash);padding:1px 6px;border-radius:3px;font-size:13px}
+  textarea{width:100%;height:110px;font-family:ui-monospace,Menlo,monospace;font-size:11px;
+      border:1px solid var(--line);border-radius:5px;padding:9px;background:var(--ground);color:var(--ink);resize:vertical}
+  .note{font-size:13.5px;color:var(--soft)}
+  .warn{border-left:3px solid #A85B12;padding-left:12px;background:transparent}
+  a.back{color:var(--accent)}
+  button.copy{padding:7px 14px;border-radius:5px;border:1px solid var(--line);background:var(--panel);
+      color:var(--ink);font-family:inherit;font-size:13.5px;cursor:pointer}
+
+  figure{margin:14px 0 2px;}
+  figure svg{width:100%;height:auto;display:block;border:1px solid var(--line);border-radius:6px;background:var(--ground)}
+  figcaption{font-size:12.5px;color:var(--soft);margin-top:6px;text-align:center}
+  .svgtxt{font-family:"Anuphan",sans-serif}
+
+</style></head><body>
+<div class="wrap">
+  <h1>ดึงจุด Ceph จาก Angelalign</h1>
+  <p class="sub">กดปุ่มเดียวบนหน้า Cephalometry → ได้ไฟล์จุดแลนด์มาร์ค 60 จุด + ฟิล์ม เอาไปใช้ใน
+     <a class="back" href="./">Ceph Protractor</a> ต่อได้เลย</p>
+
+  <div class="card">
+    <h2>1 · ติดตั้ง (ทำครั้งเดียว)</h2>
+    <ol>
+      <li>เปิดแถบบุ๊กมาร์กใน Chrome ด้วย <code>⌘ ⇧ B</code> (Windows: <code>Ctrl ⇧ B</code>)</li>
+      <li><b>ลากปุ่มสีเขียวข้างล่างนี้ไปวางบนแถบบุ๊กมาร์ก</b> — อย่ากดปุ่ม ให้ลาก</li>
+      <li class="note" style="list-style:none;margin-left:-20px">ติดตั้งครั้งเดียวพอ — เวอร์ชันใหม่ ๆ จะอัปเดตให้เองอัตโนมัติ ไม่ต้องลากซ้ำอีก</li>
+    </ol>
+    <div class="hintrow">
+      <a class="bm" id="bm" href="#">📥 ดึงจุด Ceph</a>
+      <span class="note">← ลากอันนี้ขึ้นไปบนแถบบุ๊กมาร์ก</span>
+    </div>
+    <figure>
+      <svg viewBox="0 0 640 230" xmlns="http://www.w3.org/2000/svg" class="svgtxt">
+        <rect x="18" y="14" width="604" height="200" rx="8" fill="var(--panel)" stroke="var(--line)"/>
+        <rect x="18" y="14" width="604" height="34" rx="8" fill="var(--panel-2)"/>
+        <circle cx="38" cy="31" r="5" fill="#E06C60"/><circle cx="56" cy="31" r="5" fill="#E8B451"/><circle cx="74" cy="31" r="5" fill="#67C07A"/>
+        <rect x="96" y="22" width="420" height="18" rx="9" fill="var(--ground)" stroke="var(--line)"/>
+        <text x="108" y="36" font-size="11" fill="var(--ink-faint)">mathold.github.io/ceph-protractor/bookmarklet.html</text>
+        <rect x="18" y="48" width="604" height="30" fill="var(--ground)"/>
+        <line x1="18" y1="78" x2="622" y2="78" stroke="var(--line)"/>
+        <rect x="34" y="55" width="62" height="17" rx="4" fill="var(--line-soft)"/>
+        <rect x="104" y="55" width="54" height="17" rx="4" fill="var(--line-soft)"/>
+        <rect x="166" y="55" width="70" height="17" rx="4" fill="var(--line-soft)"/>
+        <rect x="246" y="53" width="104" height="21" rx="5" fill="var(--accent)" opacity=".25" stroke="var(--accent)" stroke-dasharray="4 3"/>
+        <text x="298" y="68" font-size="11.5" text-anchor="middle" fill="var(--accent)">วางตรงนี้</text>
+        <text x="392" y="68" font-size="11.5" fill="var(--soft)">← แถบบุ๊กมาร์ก (⌘⇧B)</text>
+        <rect x="60" y="150" width="128" height="34" rx="7" fill="#0E7C86"/>
+        <text x="124" y="172" font-size="13" font-weight="700" text-anchor="middle" fill="#fff">📥 ดึงจุด Ceph</text>
+        <path d="M190 152 C 240 140, 250 108, 284 82" stroke="var(--accent)" stroke-width="2.5" fill="none" stroke-dasharray="6 5"/>
+        <path d="M284 82 l 10 10 l -13 2 z" fill="var(--accent)"/>
+        <text x="206" y="202" font-size="12.5" fill="var(--soft)">ลากปุ่มนี้ขึ้นไปวาง — อย่ากด</text>
+      </svg>
+      <figcaption>ภาพ 1 · ลากปุ่มเขียวขึ้นไปวางบนแถบบุ๊กมาร์ก (ทำครั้งเดียว)</figcaption>
+    </figure>
+  </div>
+
+  <div class="card">
+    <h2>2 · วิธีใช้</h2>
+    <ol>
+      <li>เปิดเคสใน Angelalign → <b>Cephalometry</b> → เปิดฟิล์มที่มาร์คจุดเสร็จแล้ว</li>
+      <li>กดบุ๊กมาร์ก <b>📥 ดึงจุด Ceph</b></li>
+      <li>ได้ไฟล์ <code>&lt;ชื่อเคส&gt;_landmarks.json</code> (มีทั้งพิกัดจุดและรูปฟิล์มอยู่ในไฟล์เดียว)</li>
+      <li><b>ลากไฟล์ <code>.json</code> และ <code>.pdf</code> จาก Angelalign มาวางใน
+          <a class="back" href="./">Ceph Protractor</a></b> แล้ว<b>ปักเอง 6 จุด</b> คือ
+          <b>Ba · PTM · FACC คอ · FACC ปลาย · OP หลัง · OP หน้า</b></li>
+    </ol>
+
+    <figure>
+      <svg viewBox="0 0 640 200" xmlns="http://www.w3.org/2000/svg" class="svgtxt">
+        <rect x="14" y="30" width="178" height="140" rx="8" fill="var(--panel)" stroke="var(--line)"/>
+        <rect x="14" y="30" width="178" height="26" rx="8" fill="var(--panel-2)"/>
+        <rect x="22" y="62" width="56" height="13" rx="3" fill="var(--accent)" opacity=".85"/>
+        <text x="50" y="72" font-size="8" text-anchor="middle" fill="#fff">ดึงจุด Ceph</text>
+        <image href="guide-film.jpg" x="90" y="60" width="92" height="109" preserveAspectRatio="xMidYMid slice"/>
+        <rect x="90" y="60" width="92" height="109" fill="none" stroke="var(--line)"/>
+        <text x="103" y="46" font-size="10.5" text-anchor="middle" fill="var(--ink-faint)">Angelalign · Cephalometry</text>
+        <path d="M200 100 l 36 0" stroke="var(--accent)" stroke-width="2.5"/><path d="M236 100 l -9 -6 v 12 z" fill="var(--accent)"/>
+        <rect x="248" y="56" width="140" height="88" rx="8" fill="var(--panel)" stroke="var(--line)"/>
+        <text x="318" y="92" font-size="12" text-anchor="middle" fill="var(--ink)">กดบุ๊กมาร์ก</text>
+        <rect x="268" y="102" width="100" height="22" rx="5" fill="var(--accent)"/>
+        <text x="318" y="117" font-size="11" text-anchor="middle" fill="#fff">📥 ดึงจุด Ceph</text>
+        <path d="M396 100 l 36 0" stroke="var(--accent)" stroke-width="2.5"/><path d="M432 100 l -9 -6 v 12 z" fill="var(--accent)"/>
+        <rect x="444" y="48" width="182" height="104" rx="8" fill="var(--panel)" stroke="var(--line)"/>
+        <text x="535" y="76" font-size="12" text-anchor="middle" fill="var(--ink)">ได้ไฟล์ลงเครื่อง</text>
+        <rect x="470" y="86" width="130" height="20" rx="4" fill="var(--wash)"/>
+        <text x="535" y="100" font-size="10.5" text-anchor="middle" fill="var(--accent)">เคส_landmarks.json</text>
+        <text x="535" y="126" font-size="10.5" text-anchor="middle" fill="var(--soft)">มีจุด 10 จุด + ฟิล์มพร้อมจุดแดง + สเกล</text>
+      </svg>
+      <figcaption>ภาพ 2 · เปิดฟิล์มที่มาร์คแล้ว → กดบุ๊กมาร์ก → ได้ไฟล์ .json</figcaption>
+    </figure>
+    <figure>
+      <svg viewBox="0 0 640 210" xmlns="http://www.w3.org/2000/svg" class="svgtxt">
+        <rect x="16" y="52" width="120" height="30" rx="5" fill="var(--wash)" stroke="var(--accent)"/>
+        <text x="76" y="71" font-size="11" text-anchor="middle" fill="var(--accent)">เคส_landmarks.json</text>
+        <rect x="16" y="98" width="120" height="30" rx="5" fill="var(--wash)" stroke="var(--accent)"/>
+        <text x="76" y="117" font-size="11" text-anchor="middle" fill="var(--accent)">เคส_Report.pdf</text>
+        <path d="M146 90 l 40 0" stroke="var(--accent)" stroke-width="2.5"/><path d="M186 90 l -9 -6 v 12 z" fill="var(--accent)"/>
+        <text x="166" y="78" font-size="10.5" text-anchor="middle" fill="var(--soft)">ลากมาวาง</text>
+        <rect x="198" y="22" width="188" height="166" rx="8" fill="var(--panel)" stroke="var(--line)"/>
+        <rect x="198" y="22" width="188" height="24" rx="8" fill="var(--panel-2)"/>
+        <text x="292" y="38" font-size="10.5" text-anchor="middle" fill="var(--ink-faint)">Ceph Protractor</text>
+        <rect x="210" y="54" width="164" height="122" rx="4" fill="#12181C"/>
+        <image href="guide-film.jpg" x="246" y="57" width="92" height="109"/>
+        <text x="292" y="173" font-size="9" text-anchor="middle" fill="#9FB6BE">มีจุดแดงของ Angelalign ให้เล็ง</text>
+        <path d="M396 105 l 36 0" stroke="var(--accent)" stroke-width="2.5"/><path d="M432 105 l -9 -6 v 12 z" fill="var(--accent)"/>
+        <rect x="444" y="30" width="182" height="150" rx="8" fill="var(--panel)" stroke="var(--line)"/>
+        <text x="535" y="52" font-size="12" font-weight="700" text-anchor="middle" fill="var(--ink)">ปักเอง 6 จุด</text>
+        <g font-size="11" fill="var(--accent)">
+          <text x="462" y="76">• Ba</text><text x="552" y="76">• PTM</text>
+          <text x="462" y="100">• FACC คอ</text><text x="552" y="100">• OP หลัง</text>
+          <text x="462" y="124">• FACC ปลาย</text><text x="552" y="124">• OP หน้า</text>
+        </g>
+        <text x="535" y="156" font-size="10.5" text-anchor="middle" fill="var(--soft)">ที่เหลือแอปใส่ให้แล้ว 10 จุด</text>
+      </svg>
+      <figcaption>ภาพ 3 · ลากทั้ง 2 ไฟล์เข้าแอป → ฟิล์มมีจุดแดงของ Angelalign ไว้เล็ง เหลือปักเอง 6 จุด</figcaption>
+    </figure>
+    <ol start="5">
+      <li><b>ก่อนกดดาวน์โหลดตาราง SCA ต้องใส่ชื่อผู้ใช้ก่อน</b> — กรอก<b>ชื่อหมอ</b>ลงในกล่องที่เด้งขึ้นมา
+          แล้วถึงจะดาวน์โหลดไฟล์ได้ (กรอกครั้งเดียว เครื่องจำไว้ให้)</li>
+    </ol>
+    <p class="note">ถ้าเคสมีหลายฟิล์ม จะมีกล่องให้เลือกว่าเอาฟิล์มไหน</p>
+  </div>
+
+</div>
+<script>(new Function(new TextDecoder().decode(Uint8Array.from(atob("CnZhciBDT0RFID0gImphdmFzY3JpcHQ6KGFzeW5jKCk9Pnt0cnl7Y29uc3Qgcj1hd2FpdCBmZXRjaCgnaHR0cHM6Ly9tYXRob2xkLmdpdGh1Yi5pby9jZXBoLXByb3RyYWN0b3IvYm9va21hcmtsZXQubWluLnR4dD9jYj0nK0RhdGUubm93KCkpO2lmKCFyLm9rKXRocm93IG5ldyBFcnJvcign4LmC4Lir4Lil4LiU4LmC4LiE4LmJ4LiU4LmE4Lih4LmI4LmE4LiU4LmJICcrci5zdGF0dXMpO2NvbnN0IHM9YXdhaXQgci50ZXh0KCk7KDAsZXZhbCkocy5yZXBsYWNlKC9eamF2YXNjcmlwdDovLCcnKSk7fWNhdGNoKGUpe2FsZXJ0KCfguJTguLbguIfguIjguLjguJQgQ2VwaCDguJfguLPguIfguLLguJnguYTguKHguYjguYTguJTguYkg4oCUICcrKGUmJmUubWVzc2FnZT9lLm1lc3NhZ2U6ZSkpO319KSgpIjsKZG9jdW1lbnQuZ2V0RWxlbWVudEJ5SWQoJ2JtJykuaHJlZiA9IENPREU7CmRvY3VtZW50LmdldEVsZW1lbnRCeUlkKCdibScpLmFkZEV2ZW50TGlzdGVuZXIoJ2NsaWNrJywgZnVuY3Rpb24oZSl7CiAgZS5wcmV2ZW50RGVmYXVsdCgpOwogIGFsZXJ0KCfguJvguLjguYjguKHguJnguLXguYnguJXguYnguK3guIcgIuC4peC4suC4gSIg4LmE4Lib4Lin4Liy4LiH4Lia4LiZ4LmB4LiW4Lia4Lia4Li44LmK4LiB4Lih4Liy4Lij4LmM4LiB4LiB4LmI4Lit4LiZIOC5geC4peC5ieC4p+C4hOC5iOC4reC4ouC5hOC4m+C4geC4lOC4leC4reC4meC4reC4ouC4ueC5iOC4q+C4meC5ieC4siBDZXBoYWxvbWV0cnkg4LiC4Lit4LiHIEFuZ2VsYWxpZ24nKTsKfSk7Cg=="),c=>c.charCodeAt(0)))))()</script>
+</body></html>
